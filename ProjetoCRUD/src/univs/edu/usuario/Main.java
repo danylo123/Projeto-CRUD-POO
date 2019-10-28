@@ -10,13 +10,14 @@ public class Main {
         Usuario usuario = new Usuario();
               
         UsuarioDAO dao = new UsuarioDAO();
+                
+        usuario = dao.pesquisar(1);
         
-        usuario = dao.pesquisar(2);
-        
-        usuario.setLoginUsuario("danylo");
-        usuario.setSenhaUsuario("danylo123");
+        usuario.setLoginUsuario("admin2");
+        usuario.setSenhaUsuario("admin2");
         
         dao.editar(usuario);
+        
                              
     }
 }
