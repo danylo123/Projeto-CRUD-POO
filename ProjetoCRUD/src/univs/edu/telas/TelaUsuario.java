@@ -5,17 +5,25 @@
  */
 package univs.edu.telas;
 
+import javax.swing.JOptionPane;
+import univs.edu.usuario.Usuario;
+import univs.edu.usuario.UsuarioDAO;
+
 /**
  *
  * @author LABORATORIO 01
  */
 public class TelaUsuario extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaUsuario
-     */
+    Usuario usuario;
+    UsuarioDAO dao;
+    
+    
     public TelaUsuario() {
         initComponents();
+
+        usuario = new Usuario();
+        dao = new UsuarioDAO();
     }
 
     /**
@@ -31,8 +39,8 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        tfLoginUsuario = new javax.swing.JTextField();
+        tfSenhaUsuario = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -49,16 +57,21 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Senha:");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tfLoginUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tfLoginUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tfLoginUsuarioActionPerformed(evt);
             }
         });
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tfSenhaUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jButton1.setText("Salvar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Pesquisar");
 
@@ -67,59 +80,81 @@ public class TelaUsuario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(89, 89, 89)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jButton2))
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(107, Short.MAX_VALUE))
+                                .addComponent(tfSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfLoginUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(tfLoginUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                    .addComponent(tfSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(34, 34, 34))
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void tfLoginUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLoginUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tfLoginUsuarioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(!tfLoginUsuario.getText().isEmpty() && !tfSenhaUsuario.getText().isEmpty()){       
+        usuario.setLoginUsuario(tfLoginUsuario.getText());
+        usuario.setSenhaUsuario(tfSenhaUsuario.getText());
+        
+        dao.salvar(usuario);
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+            
+            limparCampos();
+    }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+        }
+               
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void limparCampos(){
+        usuario = new Usuario();
+        tfLoginUsuario.setText("");
+        tfSenhaUsuario.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -164,7 +199,7 @@ public class TelaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField tfLoginUsuario;
+    private javax.swing.JPasswordField tfSenhaUsuario;
     // End of variables declaration//GEN-END:variables
 }
