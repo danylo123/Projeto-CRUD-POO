@@ -74,6 +74,11 @@ public class TelaUsuario extends javax.swing.JFrame {
         });
 
         jButton2.setText("Pesquisar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,6 +154,12 @@ public class TelaUsuario extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        TelaPesquisaUsuario tela = new TelaPesquisaUsuario(); // Instancia a classe
+        tela.setVisible(true); // Deixa a tela visivel
+        dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void limparCampos(){
         usuario = new Usuario();
