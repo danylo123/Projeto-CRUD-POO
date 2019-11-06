@@ -59,4 +59,12 @@ public class UsuarioDAO {
         return usuario;
     }
 
+    public Usuario autenticarUsuario(String loginUsuario, String senhaUsuario) {
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        transacao = sessao.beginTransaction(); //Preparar a sessão para inserir no banco
+        Usuario usuario = (Usuario) sessao.createCriteria(Usuario.class).add(Restrictions.eq("loginUsuario", loginUsuario)).add(Restrictions.eq("senhaUsuario", senhaUsuario)).uniqueResult();
+        sessao.close();
+        
+        return usuario != null ? usuario : null;
+    }
 }
