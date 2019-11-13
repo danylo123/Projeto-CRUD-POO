@@ -22,7 +22,7 @@ public class FuncionarioDAO {
             JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso!");
         } else {
             editar(funcionario);
-            JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Funcionário editado com sucesso!");
         }
         transacao.commit(); //Executar a ação no banco
         sessao.close(); //Fechar a conexão com o banco
