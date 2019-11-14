@@ -19,7 +19,7 @@ public class FuncionarioDAO {
         transacao = sessao.beginTransaction(); //Preparar a sessão para inserir no banco
         if (funcionario.getIdFuncionario()== 0) {
             sessao.save(funcionario); //Salvar no banco
-            JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso!");
         } else {
             editar(funcionario);
             JOptionPane.showMessageDialog(null, "Funcionário editado com sucesso!");

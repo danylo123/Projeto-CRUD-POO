@@ -31,12 +31,20 @@ public class TelaFuncionario extends javax.swing.JFrame {
         tfCpfFuncionario.setText("");
         jcCargoFuncionario.setSelectedItem("Selecione");
     }
+    
+    public void preencherFuncionario(){
+        tfNomeFuncionario.setText(funcionario.getNomeFuncionario());
+        tfCpfFuncionario.setText(funcionario.getCpfFuncionario());
+        tfSalarioFuncionario.setText(String.valueOf(funcionario.getSalarioFuncionario()));
+        tfLoginUsuario.setText(funcionario.getUsuario().getLoginUsuario());
+        jcCargoFuncionario.setSelectedItem(funcionario.getCargoFuncionario());
+    }
 
     public void carregarUsuario(Usuario usuario) {
         funcionario.setUsuario(usuario);
         tfLoginUsuario.setText(usuario.getLoginUsuario());
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -242,17 +250,17 @@ public class TelaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_tfLoginUsuarioActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (!tfNomeFuncionario.getText().isEmpty() && !tfCpfFuncionario.getText().isEmpty() 
+        if (!tfNomeFuncionario.getText().isEmpty() && !tfCpfFuncionario.getText().isEmpty()
                 && !tfSalarioFuncionario.getText().isEmpty() && !tfLoginUsuario.getText().isEmpty()
                 && !jcCargoFuncionario.getSelectedItem().equals("Selecione")) {
             funcionario.setCargoFuncionario(String.valueOf(jcCargoFuncionario.getSelectedItem()));
             funcionario.setCpfFuncionario(tfCpfFuncionario.getText());
             funcionario.setNomeFuncionario(tfNomeFuncionario.getText());
             funcionario.setSalarioFuncionario(Double.parseDouble(tfSalarioFuncionario.getText()));
-            
             dao.salvar(funcionario);
-            JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");            
             limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Prencha todos os campos!");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 

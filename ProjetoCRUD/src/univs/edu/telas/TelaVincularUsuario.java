@@ -143,7 +143,7 @@ public class TelaVincularUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btSelecionarActionPerformed
 
     private void tabelaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaUsuarioMouseClicked
-        if(evt.getClickCount() == 2){
+        if (evt.getClickCount() == 2) {
             btSelecionarActionPerformed(null);
         }
     }//GEN-LAST:event_tabelaUsuarioMouseClicked
