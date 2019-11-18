@@ -1,35 +1,53 @@
-
 package univs.edu.telas;
 
+import univs.edu.funcionario.Funcionario;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    
-    public MenuPrincipal() {
+    Funcionario funcionario;
+
+    public MenuPrincipal(Funcionario funcionario) {
         initComponents();
+        this.funcionario = funcionario;
+        nivelAcesso();
     }
 
-   
+    public void nivelAcesso() {
+        if(!funcionario.getCargoFuncionario().equals("Administrador")){
+            jmUsuario.setVisible(false);
+        }
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmUsuario = new javax.swing.JMenuItem();
+        jmFuncionario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("Cadastros");
 
-        jMenuItem1.setText("Usuário");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmUsuario.setText("Usuário");
+        jmUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmUsuarioActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jmUsuario);
+
+        jmFuncionario.setText("Funcionário");
+        jmFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmFuncionarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmFuncionario);
 
         jMenuBar1.add(jMenu1);
 
@@ -53,10 +71,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUsuarioActionPerformed
         TelaUsuario tela = new TelaUsuario();
         tela.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmUsuarioActionPerformed
+
+    private void jmFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFuncionarioActionPerformed
+        TelaFuncionario tela = new TelaFuncionario();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jmFuncionarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,7 +111,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal().setVisible(true);
+                new MenuPrincipal(null).setVisible(true);
             }
         });
     }
@@ -97,6 +120,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jmFuncionario;
+    private javax.swing.JMenuItem jmUsuario;
     // End of variables declaration//GEN-END:variables
 }
