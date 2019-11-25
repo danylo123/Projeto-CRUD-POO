@@ -67,4 +67,13 @@ public class UsuarioDAO {
         
         return usuario != null ? usuario : null;
     }
+    
+    public List<Usuario> pesquisar(String campo, String valor){
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        transacao = sessao.beginTransaction(); //Preparar a sessão para inserir no banco
+        List<Usuario> usuario = sessao.createCriteria(Usuario.class).add(Restrictions.ilike(campo, "%"+valor+"%")).list();
+        sessao.close();
+        return usuario;
+    }
+    
 }

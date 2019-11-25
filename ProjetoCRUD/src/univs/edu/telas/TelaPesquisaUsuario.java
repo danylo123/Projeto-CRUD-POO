@@ -5,6 +5,7 @@
  */
 package univs.edu.telas;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import univs.edu.usuario.Usuario;
 import univs.edu.usuario.UsuarioDAO;
@@ -18,14 +19,14 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
 
     Usuario usuario = new Usuario();
     UsuarioDAO dao = new UsuarioDAO();
-    
+
     public TelaPesquisaUsuario() {
         initComponents();
-        atualizarTabela();
+        atualizarTabela(dao.listarUsuarios());
     }
-    
-    public void atualizarTabela(){
-        UsuarioTableModel tm = new UsuarioTableModel(dao.listarUsuarios());
+
+    public void atualizarTabela(List<Usuario> usuarios) {
+        UsuarioTableModel tm = new UsuarioTableModel(usuarios);
         tabelaUsuario.setModel(tm);
     }
 
@@ -60,6 +61,11 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
         tfLoginUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfLoginUsuarioActionPerformed(evt);
+            }
+        });
+        tfLoginUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfLoginUsuarioKeyPressed(evt);
             }
         });
 
@@ -163,17 +169,17 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_tfLoginUsuarioActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         int linha = tabelaUsuario.getSelectedRow();
-       if(linha == -1){
-           JOptionPane.showMessageDialog(null, "Selecione uma linha!");
-       }else{
-           usuario = dao.pesquisar((int) tabelaUsuario.getValueAt(linha, 0));
-           TelaUsuario tela = new TelaUsuario();
-           tela.usuario = usuario;
-           tela.preencherUsuario();
-           tela.setVisible(true);
-           dispose();
-       }
+        int linha = tabelaUsuario.getSelectedRow();
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        } else {
+            usuario = dao.pesquisar((int) tabelaUsuario.getValueAt(linha, 0));
+            TelaUsuario tela = new TelaUsuario();
+            tela.usuario = usuario;
+            tela.preencherUsuario();
+            tela.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -183,20 +189,29 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       int linha = tabelaUsuario.getSelectedRow();
-       if(linha == -1){
-           JOptionPane.showMessageDialog(null, "Selecione uma linha!");
-       }else if(JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este usuário? ", "Excluir usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-           usuario = dao.pesquisar((int) tabelaUsuario.getValueAt(linha, 0));
-           dao.excluir(usuario);
-           atualizarTabela();
-           JOptionPane.showMessageDialog(null, "Usuário excluído!");
-       }
+        int linha = tabelaUsuario.getSelectedRow();
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        } else if (JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este usuário? ", "Excluir usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            usuario = dao.pesquisar((int) tabelaUsuario.getValueAt(linha, 0));
+            dao.excluir(usuario);
+            atualizarTabela(dao.listarUsuarios());
+            JOptionPane.showMessageDialog(null, "Usuário excluído!");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
+        atualizarTabela(dao.pesquisar("loginUsuario", tfLoginUsuario.getText()));
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tfLoginUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLoginUsuarioKeyPressed
+
+        atualizarTabela(dao.pesquisar("loginUsuario", tfLoginUsuario.getText()));
+
+    }//GEN-LAST:event_tfLoginUsuarioKeyPressed
 
     /**
      * @param args the command line arguments
